@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--       <report-->
+<!--    id="report_article_card_xlx"-->
+<!--    model="product.template"-->
+<!--    string="Article Liste Excel"-->
+<!--    report_type="xlsx"-->
+<!--    name="product_inherit_views.report_article_xls"-->
+<!--    file="product_inherit_views.report_article_xls"-->
+<!--    attachment_use="False"-->
+<!--/>-->
+
+    </data>
+</odoo>

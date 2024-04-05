@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_quants']" position="after">
+                <button name="total_value" attrs="{'invisible': [('type', '!=', 'product')]}" class="oe_stat_button"
+                        icon="fa-cubes" modifiers="{'invisible':[['type','!=','product']]}" options="{}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value" widget="statinfo">
+                            <field name="total_value" widget="statinfo" nolabel="1" class="mr4"
+                                   modifiers="{'readonly':true}" id="total_value"/>
+
+                        </span>
+                        <span class="o_stat_text">
+                            Total valeur
+                        </span>
+                    </div>
+                </button>
+            </xpath>
+<!--           <xpath expr="//field[@name='standard_price']" position="attributes">-->
+<!--                <attribute name="attrs">{'invisible': [('purchase_ok', '=', True)]}</attribute>-->
+<!--            </xpath>-->
+
+
+
+<!--            <xpath expr="//field[@name='standard_price']" position="after">-->
+<!--                <field name="cost_price" attrs="{'invisible': [('purchase_ok', '=', False)]}"/>-->
+
+<!--            </xpath>-->
+
+
+        </field>
+    </record>
+    <record id="view_product_stock_form_inherit" model="ir.ui.view">
+        <field name="name">product.product.inherited</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_quants']" position="after">
+
+                <button name="total_value" attrs="{'invisible': [('type', '!=', 'product')]}" class="oe_stat_button"
+                        icon="fa-cubes" modifiers="{'invisible':[['type','!=','product']]}" options="{}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value" widget="statinfo">
+                            <field name="total_value" widget="statinfo" nolabel="1" class="mr4"
+                                   modifiers="{'readonly':true}" id="total_value"/>
+                            <field name="total_value" modifiers="{'readonly':true}" id="total_value"/>
+                        </span>
+                        <span class="o_stat_text">
+                            Total valeur
+                        </span>
+                    </div>
+                </button>
+
+            </xpath>
+            <xpath expr="//field[@name='standard_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='cost_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <field name="cost_price" attrs="{'invisible': [('purchase_ok', '=', False)]}"/>
+                <field name="standard_price" attrs="{'invisible': [('purchase_ok', '=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

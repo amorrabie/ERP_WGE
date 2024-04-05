@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nomenclature_custom_form_inherit" model="ir.ui.view">
+        <field name="name">nomenclature.template.inherited</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_tmpl_id']" position="after">
+                <field name="total_cost" string="Coût Totale" context="{'bom_id': id}"/>  </xpath>
+
+            <xpath expr="//field[@name='bom_line_ids']/tree" position="inside">
+                <field name="cost_price" string="Coût du produit"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

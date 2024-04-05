@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_stock_custom_tree" model="ir.ui.view">
+        <field name="name">stock.custom.tree</field>
+        <field name="model">product.product</field> <!-- Corrected model name -->
+        <field name="arch" type="xml">
+            <tree string="Stock Custom Tree">
+                <field name="sequence" widget="handle" readonly="1"/>
+                <field name="name" string="Nom de l'article"/>
+                <field name="list_price" string="Prix de vente" widget="monetary"/>
+                <field name="marge" string="Marge"/>
+                <field name="cost_price" string="Coût"/> <!-- Changed to standard_price -->
+                <field name="total_value" string="Total Value"/> <!-- Changed to total_value -->
+                <field name="type" string="Type d'article"/>
+                <field name="last_purchase_price" string="Dernier prix d'achat"/>
+                <field name="qty_available" string="Quantity Available"/>
+                <field name="qty_available_not_res" string="Quantité En Main Non Réservée"/>
+                <field name="virtual_available" string="Quantité prévue"/>
+                <field name="uom_id" string="Unité de mesure"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+</odoo>
