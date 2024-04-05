@@ -47,7 +47,7 @@
                         <span class="o_stat_value" widget="statinfo">
                             <field name="total_value" widget="statinfo" nolabel="1" class="mr4"
                                    modifiers="{'readonly':true}" id="total_value"/>
-                            <field name="total_value" modifiers="{'readonly':true}" id="total_value"/>
+
                         </span>
                         <span class="o_stat_text">
                             Total valeur
@@ -56,18 +56,7 @@
                 </button>
 
             </xpath>
-            <xpath expr="//field[@name='standard_price']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='cost_price']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
 
-
-            <xpath expr="//field[@name='standard_price']" position="after">
-                <field name="cost_price" attrs="{'invisible': [('purchase_ok', '=', False)]}"/>
-                <field name="standard_price" attrs="{'invisible': [('purchase_ok', '=', True)]}"/>
-            </xpath>
         </field>
     </record>
 </odoo>

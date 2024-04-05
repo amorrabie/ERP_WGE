@@ -8,7 +8,9 @@ class ProductCustom(models.Model):
     cost_price = fields.Float(
         compute='_compute_cost_price',
         store=True,
-        readonly=True
+        readonly=True,
+
+
     )
 
     total_value = fields.Float(
@@ -36,13 +38,21 @@ class ProductCustom(models.Model):
             else:
                 product.total_value = product.qty_available * product.standard_price
 
+    @api.depends('purchase_ok', 'last_purchase_price', 'standard_price')
+    def _compute_cost_price(self):
+        for product in self:
+            if product.purchase_ok:
+                product.cost_price = product.last_purchase_price
+            else:
+                product.cost_price = product.standard_price
+
+    # <<<<<<<<<<<<<<<<<<<<standard_price based on total_cost>>>>>>>>>>>>>>>>>>>>>>>
     @api.onchange('purchase_ok', 'last_purchase_price', 'standard_price', 'bom_ids.total_cost')
     def _compute_standard_price(self):
         for product in self:
             if product.purchase_ok:
                 product.standard_price = product.last_purchase_price
-                
-            # <<<<<<<<<<<<<<<<<<<<standard_price based on total_cost>>>>>>>>>>>>>>>>>>>>>>>
+
             elif product.bom_ids and product.bom_ids.total_cost > 0:
                 product.standard_price = product.bom_ids.total_cost
 
@@ -71,17 +81,27 @@ class StockCustom(models.Model):
             else:
                 product.total_value = product.qty_available * product.standard_price
 
-    @api.depends('list_price', 'standard_price')
-    def _compute_marge(self):
-        for product in self:
-            if product.list_price > 0:
-                product.marge = product.list_price - product.last_purchase_price
-
     @api.depends('purchase_ok', 'last_purchase_price', 'standard_price')
     def _compute_cost_price(self):
         for product in self:
             if product.purchase_ok:
+                product.cost_price = product.last_purchase_price
+            else:
+                product.cost_price = product.standard_price
+
+        # <<<<<<<<<<<<<<<<<<<<standard_price based on total_cost>>>>>>>>>>>>>>>>>>>>>>>
+
+    @api.onchange('purchase_ok', 'last_purchase_price', 'standard_price', 'bom_ids.total_cost')
+    def _compute_standard_price(self):
+        for product in self:
+            if product.purchase_ok:
                 product.standard_price = product.last_purchase_price
+
+            elif product.bom_ids and product.bom_ids.total_cost > 0:
+                product.standard_price = product.bom_ids.total_cost
+
+            else:
+                product.standard_price = product.standard_price
 
 
 class MrpBomLineCustom(models.Model):
